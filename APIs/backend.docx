@@ -3,7 +3,7 @@
 
 2. API: Application Programming Interface = part of back-end that connects front-end & rest of back-end
 @ takes valid request from front-end, send it to backend logic, format the response and send it back to front-end in JSON
-* response = output data + status code
+* response = output data + status code = use json() to convert it into dict for easy access
 
 3. backend logic: core part of backend that process data, applies business rules, interact with database & calls API
 @ business logic = set of rules that define how an app should work
@@ -17,10 +17,6 @@
 @ request header: contains metadata regarding API request, thus helping user to correctly process the request
 --> metadata = descriptive info. (like authentication cred., content type, etc.) regarding our data that's related to our API request
 @ request body: data send to API in JSON format. mainly used with POST & PUT requests
-@ response: data sent by API in JSON format after processing user request. also returns HTTP status code
---> use json() method to convert response in dict. so that user can easily access the data
---> status code == 200: request is successful and status code == 404: data not found
---> These APIs are commonly called REST (Representational State Transfer) API
 
 4. Library: collection of pre-written codes (functions, classes, etc) that can be used in any manner anywhere, as long as it's correct 
 5. Framework: pre-built structure that guides user for creating applications, by providing pre-written codes & libraries and defining
