@@ -1,7 +1,11 @@
-1. API: Application Programming Interface
-@ act as a bridge that allows two different softwares/systems to communicate each other and exchange data & info.
+1. back-end: connects front-end & database
+@ takes request from front-end, interacts with database to fetch or update data, process it & send back response to user
 
-2. API structure:
+2. API: Application Programming Interface = part of back-end that connects front-end & rest of back-end
+@ takes valid request from front-end, send it to backend logic, format the response and send it back to front-end in JSON
+* response = output data + status code
+
+3. API structure:
 @ URL: used by client (application) to search request.
 --> endpoint = specific URL path where API receive specific user-requests related to endpoint
 --> API can have multiple endpoints, each performs different function
@@ -15,12 +19,6 @@
 --> status code == 200: request is successful and status code == 404: data not found
 --> These APIs are commonly called REST (Representational State Transfer) API
 
-3. API mechanism:
---> user interacts with front-end and it makes request on behalf of user and send it to API through URL 
---> API checks if request is valid or not and if it's so, then API send it to database(back-end) as query
---> database retrieve output data & send it back to API where it is formatted in JSON form, and attach HTTP status code
---> response (output data + status code) is sent back to front-end where it is processed and then display it to user
-
 4. Library: collection of pre-written codes (functions, classes, etc) that can be used in any manner anywhere, as long as it's correct 
 5. Framework: pre-built structure that guides user for creating applications, by providing pre-written codes & libraries and defining
    architecture & flow in which user will create & run the program
@@ -28,9 +26,9 @@
 6. pydantic: library that helps to manage and check whether the data is correct & in right order based on data model
 @ BaseModel = main class for creating data model
 
-7. FastAPI: python-based framework that is used for building high-performance API quickly & efficiently
+7. FastAPI: python-based framework used for building high-performance API quickly & efficiently
 @ prefer over Django when you've to create high-speed back-end only. python library = fastapi
 @ FastAPI = main class of fastapi used for creating app
 @ uvicorn = lightweigh, high-speed web server for running FastAPI app
 
-8. Django: python-based framework that is used to build full websites (from front-end to back-end) by following MVT pattern
+8. Django: python-based framework used to build full websites (from front-end to back-end) by following MVT pattern
