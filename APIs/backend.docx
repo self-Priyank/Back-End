@@ -5,6 +5,9 @@
 @ takes valid request from front-end, send it to backend logic, format the response and send it back to front-end in JSON
 * response = output data + status code
 
+3. backend logic: core part of backend that process data, applies business rules, interact with database & calls API
+@ business logic = set of rules that define how an app should work
+
 3. API structure:
 @ URL: used by client (application) to search request.
 --> endpoint = specific URL path where API receive specific user-requests related to endpoint
