@@ -22,9 +22,9 @@
 6. pydantic: library that helps to validate data based on data model
 @ BaseModel = main class for creating data model
 
-7. FastAPI: python-based framework used for building high-performance API quickly & efficiently
+7. FastAPI: python framework used for building high-performance API quickly & efficiently
 @ prefer over Django when you're creating high-speed back-end only. python library = fastapi
 @ FastAPI = main class of fastapi used to create app
 @ uvicorn = lightweight, high-speed web server for running FastAPI app
 
-8. Django: python-based framework used to build full websites (from front-end to back-end) by following MVT pattern
+8. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
