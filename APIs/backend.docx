@@ -1,8 +1,8 @@
 1. back-end: connects front-end & database
-@ takes request from front-end, interacts with database to fetch or update data, process it & send back response to user
+@ takes request from front-end, interacts with database to fetch or update data & send it back to user after processing
 
 2. API: Application Programming Interface = part of back-end that connects front-end & back-end server
-@ takes valid request from front-end, send it to server, format response and send it back to front-end in JSON
+@ takes valid request from front-end, send it to server, format response and sends back to front-end in JSON
 * response = output data + status code = use json() to convert it into dict for easy access
 
 3. API structure:
