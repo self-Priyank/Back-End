@@ -16,7 +16,7 @@ except json.JSONDecodeError:
 except Exception as e:
     print(f"Unexpected error: {e}")
     data = []
-# prog. opens file & loads its content by parsing it into list of dict.
+# prog. opens database & loads its content by parsing it into list of dict.
 
 class Person(BaseModel):
     email: str
