@@ -30,17 +30,4 @@ def read_URL():
 
 @app.get("/users", response_model=list[Person])
 def get_all_users():
-    return data
-
-@app.get("/login", response_model=list[Person])
-def login_users():
-    user_email = input("enter your email: ")
-    user_pw = input("enter your password: ")
-    pk = data.keys()
-    for i in pk:
-        if user_email == pk[i]:
-            if user_pw == pk[i+1]:
-                print(f"Login with the account {user_email} is successful")
-                return
-    print("Email Id doesn't exist")
-    return     
+    return data     
