@@ -6,10 +6,12 @@
 * response = output data + status code = use json() to convert it into dict for easy access
 
 3. API structure:
-@ URL: used by client to send request to API
-@ endpoint = specific URL path that calls a specific API func
---> API can have multiple endpoints for different funcs
-@ HTTP methods: perform specific actions on endpoint
+@ URL: full address used by client to send request to API. Ex: https://example.com/users?id=1
+--> routes: main path inside URL that tells API where to send request. Ex: /users
+--> endpoint = specific func that API calls to perform specific operation. Ex: GET /users, PUT /users, etc.
+** API can have multiple endpoints based on methods
+
+@ HTTP methods: perform specific actions
 --> GET = retrieve data, POST = create new data, PUT = update existing data, DELETE = remove data 
 @ request header: carries metadata regarding request. helps API to process it correctly
 --> metadata = descriptive info. like authentication cred., content type, etc. 
