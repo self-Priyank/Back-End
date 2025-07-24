@@ -9,7 +9,7 @@
 @ URL: full address used by client to send request to API. Ex: https://example.com/users?id=1
 --> routes: main path inside URL that tells API where to send request. Ex: /users
 --> endpoint = specific func that API calls to perform specific operation. Ex: GET /users, PUT /users, etc.
-** API can have multiple endpoints based on methods
+** API can have multiple endpoints
 
 @ HTTP methods: perform specific actions
 --> GET = retrieve data, POST = create new data, PUT = update existing data, DELETE = remove data 
