@@ -21,11 +21,11 @@
 5. Framework: provides pre-defined structure with built-in tools for creating applications
 --> controls the flow of program & user add its code in this setup 
 
-6. FastAPI: python framework used for building high-performance API quickly & efficiently
+6. uvicorn = lightweight, high-speed web server for running FastAPI app
+7. FastAPI: python framework used for building high-performance API quickly & efficiently
 @ prefer over Django when you're creating high-speed back-end only. python module = fastapi
 @ FastAPI = main class of fastapi used to create app
-@ uvicorn = lightweight, high-speed web server for running FastAPI app
-@ pydantic: fastapi library that helps to validate data based on data model
---> BaseModel = main class for creating data model
+@ response_model = keyword that instructs app to process data based on data model
+@ pydantic: library that helps app to process & validate data. BaseModel = creates data model
 
 8. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
