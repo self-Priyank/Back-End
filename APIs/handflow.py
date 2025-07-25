@@ -28,6 +28,18 @@ app = FastAPI()
 def read_URL():
     return "!! Bienvenue !!"
 
+# Person return single profile
+# list[Person] return all user profiles of same type
 @app.get("/users", response_model=list[Person])
 def get_all_users():
-    return data     
+    return data
+
+@app.post("/login")
+def login_user(user: Person): 
+    for d in data:
+        if (user["email"] == d["email"]):
+            if (user["password"] == d["password"]):
+                return {"message": "Login successful!"}
+            else:
+                return {"message": "Incorrect password"}
+        return {"message": "user not exist"}
