@@ -8,10 +8,10 @@ try:
     with open("users.json", "r") as f:
         data = json.load(f)   # type = list of dict.
 except FileNotFoundError:
-    print("Error: 'user.json' file was not found")
+    print("Error: 'users.json' file was not found")
     data = []
 except json.JSONDecodeError:
-    print("Error: 'user.json' file is wrongly formatted")    # Invalid JSON
+    print("Error: 'users.json' file is wrongly formatted")    # Invalid JSON
     data = []
 except Exception as e:
     print(f"Unexpected error: {e}")
@@ -37,9 +37,9 @@ def get_all_users():
 @app.post("/login")
 def login_user(user: Person): 
     for d in data:
-        if (user["email"] == d["email"]):
-            if (user["password"] == d["password"]):
+        if (user.email == d["email"]):                             # user is person class instance, not a dict
+            if (user.password == d["password"]):
                 return {"message": "Login successful!"}
             else:
                 return {"message": "Incorrect password"}
-        return {"message": "user not exist"}
+    return {"message": "user not exist"}
