@@ -37,12 +37,12 @@ def get_all_users():
 @app.post("/login")
 def login_user(user: Person): 
     for d in data:
-        if (user.email == d["email"]):                                                # user is person class instance, not a dict
-            if (user.password == d["password"]):
+        if user.email == d["email"]:                                                # user is person class instance, not a dict
+            if user.password == d["password"]:
                 return {"message": "Login successful!"}
             else:
                 raise HTTPException(status_code=401, detail="Incorrect password")     # calling HTTPException class constructor
-    raise HTTPException(status_code=404, detail="user doesn't exist")        
+    raise HTTPException(status_code=404, detail="user doesn't exist")     
 
 # Some additional updating I'm considering:
 #   1. password hashing
