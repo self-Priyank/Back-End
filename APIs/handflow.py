@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import json       # read, edit & parse JSON file
 
-# Parsing: converts JSON raw data into structured data based on its format. occurs in json.load() 
+# Parsing: convert JSON raw data into structured data by breaking into small parts & process them based on format. occurs in json.load() 
 # most cases, reading & parsing are done in single call, reading occurs first (internally) & then parsing
 try:
     with open("API_data.json", "r") as f:
