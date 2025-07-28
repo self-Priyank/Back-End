@@ -42,7 +42,18 @@ def login_user(user: Person):
                 return {"message": "Login successful!"}
             else:
                 raise HTTPException(status_code=401, detail="Incorrect password")     # calling HTTPException class constructor
-    raise HTTPException(status_code=404, detail="user doesn't exist")     
+    raise HTTPException(status_code=404, detail="user doesn't exist") 
+
+@app.post("/sign_up")   
+def sign_up_user(user: Person):
+    for d in data:
+        if user.email == d["email"]:
+            raise HTTPException(status_code=409, detail="user already exist")
+    data.append({
+        "email": user.email,
+        "password": user.password})
+    return {"message": "New user created"}
+            
 
 # Some additional updating I'm considering:
 #   1. password hashing
