@@ -53,7 +53,7 @@ def sign_up_user(user: Person):
         "email": user.email,
         "password": user.password})
     with open("API_data.json", "w") as f:
-        json.dump(data, f, indent=4)
+        json.dump(data, f, indent=4)                # write data into file in JSO
     return {"message": "New user created"}
             
 
