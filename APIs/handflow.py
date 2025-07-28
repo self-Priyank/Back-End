@@ -5,13 +5,13 @@ import json       # read, edit & parse JSON file
 # Parsing: converts JSON raw data into structured data based on its format. occurs in json.load() 
 # most cases, reading & parsing are done in single call, reading occurs first (internally) & then parsing
 try:
-    with open("users.json", "r") as f:
+    with open("API_data.json", "r") as f:
         data = json.load(f)   # type = list of dict.
 except FileNotFoundError:
-    print("Error: 'users.json' file was not found")
+    print("Error: 'API_data.json' file was not found")
     data = []
 except json.JSONDecodeError:
-    print("Error: 'users.json' file is wrongly formatted")    # Invalid JSON
+    print("Error: 'API_data' file is wrongly formatted")    # Invalid JSON
     data = []
 except Exception as e:
     print(f"Unexpected error: {e}")
@@ -52,7 +52,7 @@ def sign_up_user(user: Person):
     data.append({
         "email": user.email,
         "password": user.password})
-    with open("data.json", "w") as f:
+    with open("API_data.json", "w") as f:
         json.dump(data, f, indent=4)
     return {"message": "New user created"}
             
