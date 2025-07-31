@@ -1,17 +1,20 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pymongo import MongoClient
-from pymongo.errors import DuplicateKeyError
+from pymongo.errors import DuplicateKeyError, ServerSelectionTimeoutError
 from typing import Optional
 
-client = MongoClient("mongodb://localhost:27017")
-db = client["mydb"]
-task_coll = db["Tasks"]
-try:
-    task_coll.create_index("task_order", unique=True)
-except DuplicateKeyError:
-    print("order value must be unique")
-    raise
+try: 
+    client = MongoClient("mongodb://localhost:27017", ServerSelectionTimeoutMS=5000)
+    db = client["mydb"]
+    task_coll = db["Tasks"]
+    try:
+        task_coll.create_index("task_order", unique=True)
+    except DuplicateKeyError:
+        print("order value must be unique")
+        raise
+except ServerSelectionTimeoutError:
+    print("database error occured. Please, try again later!")
 
 class TASK(BaseModel):
     id: str
