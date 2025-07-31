@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
+from typing import Optional
 
 client = MongoClient("mongodb://localhost:27017")
 db = client["mydb"]
@@ -20,8 +21,8 @@ class TASK(BaseModel):
     task_order: int
     task_status: str
     start_time: float
-    deadline: float
-    completion_time: float
+    deadline: Optional[float] = None
+    completion_time: Optional[float] = None
     is_pinned: bool
 
 app = FastAPI()
