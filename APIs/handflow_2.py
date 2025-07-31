@@ -15,6 +15,7 @@ try:
         raise
 except ServerSelectionTimeoutError:
     print("database error occured. Please, try again later!")
+    raise
 
 class TASK(BaseModel):
     id: str
