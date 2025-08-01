@@ -50,11 +50,12 @@ def read_URL():
     return "!! Bienvenue !!"
 
 @app.get("/users_tasks", response_model=list[TASK])
-def get_tasks_by_():
+def get_all_user_tasks():
     try:
-        docs = task_coll.find()
+        docs = list(task_coll.find())
     except PyMongoError: 
         raise HTTPException(status_code=500, detail="database error")
+    
     tasks = []
     for d in docs:
         d["id"] = str(d["_id"])
@@ -64,11 +65,14 @@ def get_tasks_by_():
     
 
 @app.get("/users_tasks/{usr_nm}", response_model=list[TASK])
-def get_single_user_tasks(usr_nm: str):
+def get_tasks_by_username(usr_nm: str):
     try:
-        docs = task_coll.find({"username": usr_nm})
+        docs = list(task_coll.find({"username": usr_nm}))
+        if not docs:
+            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
     except PyMongoError: 
         raise HTTPException(status_code=500, detail="database error")
+    
     tasks = []
     for d in docs:
         d["id"] = str(d["_id"])
@@ -77,13 +81,19 @@ def get_single_user_tasks(usr_nm: str):
     return tasks
 
 @app.get("/users_tasks/{usr_nm}/{status}", response_model=list[TASK])
-def get_tasks_from_single_User_n_Status(usr_nm: str, status: str):
+def get_tasks_byusername_and_status(usr_nm: str, status: str):
     if is_invalid_status(status):
         raise HTTPException(status_code=400, detail="invalid status")
+    
     try:
-        docs = task_coll.find({"username": usr_nm, "task_status": status})
+        if not task_coll.find_one({"username": usr_nm}):
+            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
+        docs = list(task_coll.find({"username": usr_nm, "task_status": status}))
+        if not docs:
+            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm} and status = {status}")
     except PyMongoError: 
         raise HTTPException(status_code=500, detail="database error")
+    
     tasks = []
     for d in docs:
         d["id"] = str(d["_id"])
@@ -111,4 +121,7 @@ def create_tasks(t: TASK_CREATE):
         raise HTTPException(status_code=500, detail="failed to create task due to database error")
     return {"message": f"new task is created with ID {str(insert_tk.inserted_id)}"}
 
-# application function
+# find() = returns iterable object for every case
+# find_one() = returns single dict when doc. is found, else None. use it when you want only 1 doc. or to check if it exists or not
+
+# application function for Deep learning
