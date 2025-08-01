@@ -37,6 +37,12 @@ class TASK_CREATE(BaseModel):
     task_description: str
     task_order: int = Field(gt=0, description="order value must be greater than 0")
 
+total_status = ["complete", "delaycomplete", "pending", "overdue", "archived"]
+def is_invalid_status(sv):
+    if sv not in total_status:
+        return True
+    return False
+
 app = FastAPI()
 
 @app.get("/")    
@@ -44,7 +50,7 @@ def read_URL():
     return "!! Bienvenue !!"
 
 @app.get("/users_tasks", response_model=list[TASK])
-def get_all_user_tasks():
+def get_tasks_by_():
     try:
         docs = task_coll.find()
     except PyMongoError: 
@@ -61,6 +67,21 @@ def get_all_user_tasks():
 def get_single_user_tasks(usr_nm: str):
     try:
         docs = task_coll.find({"username": usr_nm})
+    except PyMongoError: 
+        raise HTTPException(status_code=500, detail="database error")
+    tasks = []
+    for d in docs:
+        d["id"] = str(d["_id"])
+        del d["_id"]
+        tasks.append(d)
+    return tasks
+
+@app.get("/users_tasks/{usr_nm}/{status}", response_model=list[TASK])
+def get_tasks_from_single_User_n_Status(usr_nm: str, status: str):
+    if is_invalid_status(status):
+        raise HTTPException(status_code=400, detail="invalid status")
+    try:
+        docs = task_coll.find({"username": usr_nm, "task_status": status})
     except PyMongoError: 
         raise HTTPException(status_code=500, detail="database error")
     tasks = []
