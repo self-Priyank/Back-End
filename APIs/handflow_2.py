@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError, ServerSelectionTimeoutError, PyMongoError
 from typing import Optional
@@ -24,12 +24,18 @@ class TASK(BaseModel):
     task_title: str
     username: str
     task_description: str
-    task_order: int
+    task_order: int = Field(gt=0, description="order value must be greater than 0")
     task_status: str
     start_time: float
     deadline: Optional[float] = None
     completion_time: Optional[float] = None
     is_pinned: bool
+
+class TASK_CREATE(BaseModel):
+    task_title: str
+    username: str
+    task_description: str
+    task_order: int = Field(gt=0, description="order value must be greater than 0")
 
 app = FastAPI()
 
@@ -65,9 +71,7 @@ def get_single_user_tasks(usr_nm: str):
     return tasks
 
 @app.post("/create_task")
-def create_tasks(t: TASK): 
-    if t.task_order <= 0:
-        raise HTTPException(status_code=400, detail="order value must be greater than 0")
+def create_tasks(t: TASK_CREATE): 
     tk = {"task_title": t.task_title, 
           "username": t.username, 
           "task_description": t.task_description,
