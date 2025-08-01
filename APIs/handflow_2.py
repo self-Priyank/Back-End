@@ -81,7 +81,7 @@ def get_tasks_by_username(usr_nm: str):
     return tasks
 
 @app.get("/users_tasks/{usr_nm}/{status}", response_model=list[TASK])
-def get_tasks_byusername_and_status(usr_nm: str, status: str):
+def get_tasks_by_username_and_status(usr_nm: str, status: str):
     if is_invalid_status(status):
         raise HTTPException(status_code=400, detail="invalid status")
     
