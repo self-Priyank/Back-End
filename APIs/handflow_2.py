@@ -53,6 +53,7 @@ def read_URL():
 def get_all_user_tasks():
     try:
         docs = list(task_coll.find())
+        docs = docs.sort(TASK.task_order, 1)
     except PyMongoError: 
         raise HTTPException(status_code=500, detail="database error")
     
