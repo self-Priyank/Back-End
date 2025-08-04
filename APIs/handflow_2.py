@@ -11,7 +11,7 @@ try:
     db = client["mydb"]
     task_coll = db["Tasks"]
     try:
-        task_coll.create_index("task_order", unique=True)
+        task_coll.create_index(("task_order", 1), unique=True)
     except DuplicateKeyError:
         print("order value must be unique")
         raise
