@@ -121,7 +121,4 @@ def create_tasks(t: TASK_CREATE):
         raise HTTPException(status_code=500, detail="failed to create task due to database error")
     return {"message": f"new task is created with ID {str(insert_tk.inserted_id)}"}
 
-# find() = returns iterable object for every case
-# find_one() = returns single dict when doc. is found, else None. use it when you want only 1 doc. or to check if it exists or not
-
 # application function for Deep learning
