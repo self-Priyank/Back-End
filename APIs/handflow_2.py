@@ -52,8 +52,7 @@ def read_URL():
 @app.get("/users_tasks", response_model=list[TASK])
 def get_all_user_tasks():
     try:
-        docs = list(task_coll.find())
-        docs = docs.sort("task_order", 1)
+        docs = list(task_coll.find().sort("task_order", 1))
     except PyMongoError: 
         raise HTTPException(status_code=500, detail="database error")
     
@@ -68,7 +67,7 @@ def get_all_user_tasks():
 @app.get("/users_tasks/{usr_nm}", response_model=list[TASK])
 def get_tasks_by_username(usr_nm: str):
     try:
-        docs = list(task_coll.find({"username": usr_nm}))
+        docs = list(task_coll.find({"username": usr_nm}).sort("task_order", 1))
         if not docs:
             raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
     except PyMongoError: 
@@ -89,7 +88,7 @@ def get_tasks_by_username_and_status(usr_nm: str, status: str):
     try:
         if not task_coll.find_one({"username": usr_nm}):
             raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
-        docs = list(task_coll.find({"username": usr_nm, "task_status": status}))
+        docs = list(task_coll.find({"username": usr_nm, "task_status": status}).sort("task_order", 1))
         if not docs:
             raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm} and status = {status}")
     except PyMongoError: 
