@@ -25,11 +25,11 @@ class TASK(BaseModel):
     username: str
     task_description: str
     task_order: int = Field(gt=0, description="order value must be greater than 0")
-    task_status: str
+    task_status: str = "pending"
     start_time: float
     deadline: Optional[float] = None
     completion_time: Optional[float] = None
-    is_pinned: bool
+    is_pinned: bool = False
 
 class TASK_CREATE(BaseModel):
     task_title: str
@@ -42,6 +42,11 @@ def is_invalid_status(sv):
     if sv not in total_status:
         return True
     return False
+
+def process_data(d):
+    d["id"] = str(d["_id"])
+    del d["_id"]
+    return d
 
 app = FastAPI()
 
@@ -58,9 +63,7 @@ def get_all_user_tasks():
     
     tasks = []
     for d in docs:
-        d["id"] = str(d["_id"])
-        del d["_id"]
-        tasks.append(d)
+        tasks.append(process_data(d))
     return tasks
     
 
@@ -75,9 +78,7 @@ def get_tasks_by_username(usr_nm: str):
     
     tasks = []
     for d in docs:
-        d["id"] = str(d["_id"])
-        del d["_id"]
-        tasks.append(d)
+        tasks.append(process_data(d))
     return tasks
 
 @app.get("/users_tasks/{usr_nm}/{status}", response_model=list[TASK])
@@ -96,9 +97,7 @@ def get_tasks_by_username_and_status(usr_nm: str, status: str):
     
     tasks = []
     for d in docs:
-        d["id"] = str(d["_id"])
-        del d["_id"]
-        tasks.append(d)
+        tasks.append(process_data(d))
     return tasks
 
 @app.post("/create_task")
