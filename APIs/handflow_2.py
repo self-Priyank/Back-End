@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError, ServerSelectionTimeoutError, PyMongoError
-from typing import Optional
+from typing import Optional, List
 import time
 
 try: 
@@ -54,7 +54,7 @@ app = FastAPI()
 def read_URL():
     return "!! Bienvenue !!"
 
-@app.get("/users_tasks", response_model=list[TASK])
+@app.get("/users_tasks", response_model=List[TASK])
 def get_all_user_tasks():
     try:
         docs = list(task_coll.find().sort("task_order", 1))
@@ -65,9 +65,8 @@ def get_all_user_tasks():
     for d in docs:
         tasks.append(process_data(d))
     return tasks
-    
 
-@app.get("/users_tasks/{usr_nm}", response_model=list[TASK])
+@app.get("/users_tasks/{usr_nm}", response_model=List[TASK])
 def get_tasks_by_username(usr_nm: str):
     try:
         docs = list(task_coll.find({"username": usr_nm}).sort("task_order", 1))
@@ -81,7 +80,7 @@ def get_tasks_by_username(usr_nm: str):
         tasks.append(process_data(d))
     return tasks
 
-@app.get("/users_tasks/{usr_nm}/{status}", response_model=list[TASK])
+@app.get("/users_tasks/{usr_nm}/{status}", response_model=List[TASK])
 def get_tasks_by_username_and_status(usr_nm: str, status: str):
     if is_invalid_status(status):
         raise HTTPException(status_code=400, detail="invalid status")
@@ -102,15 +101,12 @@ def get_tasks_by_username_and_status(usr_nm: str, status: str):
 
 @app.post("/create_task")
 def create_tasks(t: TASK_CREATE): 
-    tk = {"task_title": t.task_title, 
-          "username": t.username, 
-          "task_description": t.task_description,
-          "task_order": t.task_order,
-          "task_status": "pending", 
-          "start_time": time.time(),
-          "deadline": None,
-          "completion_time": None,
-          "is_pinned": False}
+    tk = TASK(id = "temp",
+              task_title = t.task_title, 
+              username = t.username, 
+              task_description = t.task_description,
+              task_order = t.task_order, 
+              start_time = time.time()).model_dump(exclude={"id"})
     
     try:
         insert_tk = task_coll.insert_one(tk)
@@ -119,5 +115,3 @@ def create_tasks(t: TASK_CREATE):
     except PyMongoError:
         raise HTTPException(status_code=500, detail="failed to create task due to database error")
     return {"message": f"new task is created with ID {str(insert_tk.inserted_id)}"}
-
-# application function for Deep learning
