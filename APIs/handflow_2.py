@@ -54,7 +54,7 @@ app = FastAPI()
 def read_URL():
     return "!! Bienvenue !!"
 
-@app.get("/users_tasks", response_model=List[TASK])
+@app.get("/tasks", response_model=List[TASK])
 def get_all_user_tasks():
     try:
         docs = list(task_coll.find().sort("task_order", 1))
@@ -66,7 +66,7 @@ def get_all_user_tasks():
         tasks.append(process_data(d))
     return tasks
 
-@app.get("/users_tasks/{usr_nm}", response_model=List[TASK])
+@app.get("/tasks/by_user/{usr_nm}", response_model=List[TASK])
 def get_tasks_by_username(usr_nm: str):
     try:
         docs = list(task_coll.find({"username": usr_nm}).sort("task_order", 1))
@@ -80,7 +80,7 @@ def get_tasks_by_username(usr_nm: str):
         tasks.append(process_data(d))
     return tasks
 
-@app.get("/users_tasks/{usr_nm}/{status}", response_model=List[TASK])
+@app.get("/tasks/by_user_status/{usr_nm}/{status}", response_model=List[TASK])
 def get_tasks_by_username_and_status(usr_nm: str, status: str):
     if is_invalid_status(status):
         raise HTTPException(status_code=400, detail="invalid status")
@@ -92,7 +92,7 @@ def get_tasks_by_username_and_status(usr_nm: str, status: str):
         if not docs:
             raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm} and status = {status}")
     except PyMongoError: 
-        raise HTTPException(status_code=500, detail="database error")
+        raise HTTPException(status_code=500, detail="database server error")
     
     tasks = []
     for d in docs:
@@ -100,7 +100,7 @@ def get_tasks_by_username_and_status(usr_nm: str, status: str):
     return tasks
 
 @app.post("/create_task")
-def create_tasks(t: TASK_CREATE): 
+def create_task(t: TASK_CREATE): 
     tk = TASK(id = "temp",
               task_title = t.task_title, 
               username = t.username, 
@@ -113,5 +113,17 @@ def create_tasks(t: TASK_CREATE):
     except DuplicateKeyError:
         raise HTTPException(status_code=400, detail="failed to create task because order value isn't unique")
     except PyMongoError:
-        raise HTTPException(status_code=500, detail="failed to create task due to database error")
+        raise HTTPException(status_code=500, detail="database server error")
     return {"message": f"new task is created with ID {str(insert_tk.inserted_id)}"}
+
+@app.put("/pinning_task/{usr_nm}")
+def pinning_task(usr_nm: str):
+    try:
+        docs = task_coll.find_one({"username": usr_nm})
+        if not docs: 
+            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
+        p_docs = process_data(docs)
+        task_coll.update_one({"username": usr_nm}, {"$set": {"is_pinned": True}})   
+        return {"message": f"Task ID {str(p_docs['id'])} is pinned"} 
+    except PyMongoError:
+        raise HTTPException(status_code=500, detail="database server error")
