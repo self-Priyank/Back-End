@@ -16,7 +16,7 @@ try:
         print("order value must be unique")
         raise
 except ServerSelectionTimeoutError:
-    print("database error occured. Please, try again later!")
+    print("database is down. Please, try again later!")
     raise
 
 class TASK(BaseModel):
