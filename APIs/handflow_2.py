@@ -52,7 +52,7 @@ app = FastAPI()
 
 @app.get("/")    
 def read_URL():
-    return "!! Bienvenue !!"
+    return {"message": "!! Bienvenue !!"}
 
 @app.get("/tasks", response_model=List[TASK])
 def get_all_user_tasks():
