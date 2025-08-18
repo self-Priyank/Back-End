@@ -116,26 +116,30 @@ def create_task(t: TASK_CREATE):
         raise HTTPException(status_code=500, detail="database server error")
     return {"message": f"new task is created with ID {str(insert_tk.inserted_id)}"}
 
-@app.put("/pinning_task/{usr_nm}")
-def pinning_task(usr_nm: str):
+@app.put("/pinning_task/{usr_nm}/{task_title}")
+def pinning_task(usr_nm: str, task_title: str):
     try:
-        docs = task_coll.find_one({"username": usr_nm})
-        if not docs: 
+        if not task_coll.find_one({"username": usr_nm}): 
             raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
+        docs = task_coll.find_one({"task_title": task_title, "username": usr_nm})
+        if not docs:
+            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm} and task title {task_title}")
         p_docs = process_data(docs)
-        task_coll.update_one({"username": usr_nm}, {"$set": {"is_pinned": True}})   
-        return {"message": f"Task ID {p_docs['id']} is now pinned"} 
+        task_coll.update_one({"task_title": task_title, "username": usr_nm}, {"$set": {"is_pinned": True}})   
+        return {"message": f"Task ID {p_docs['id']} is now pinned"}
     except PyMongoError:
         raise HTTPException(status_code=500, detail="database server error")
 
-@app.put("/unpinning_task/{usr_nm}")
-def unpinning_task(usr_nm: str):
+@app.put("/unpinning_task/{usr_nm}/{task_title}")
+def unpinning_task(usr_nm: str, task_title: str):
     try:
-        docs = task_coll.find_one({"username": usr_nm})
-        if not docs: 
+        if not task_coll.find_one({"username": usr_nm}): 
             raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
+        docs = task_coll.find_one({"task_title": task_title, "username": usr_nm})
+        if not docs:
+            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm} and task title {task_title}")
         p_docs = process_data(docs)
-        task_coll.update_one({"username": usr_nm}, {"$set": {"is_pinned": False}})   
+        task_coll.update_one({"task_title": task_title, "username": usr_nm}, {"$set": {"is_pinned": False}})   
         return {"message": f"Task ID {p_docs['id']} is now unpinned"} 
     except PyMongoError:
         raise HTTPException(status_code=500, detail="database server error")
