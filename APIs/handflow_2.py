@@ -116,8 +116,8 @@ def create_task(t: TASK_CREATE):
         raise HTTPException(status_code=500, detail="database server error")
     return {"message": f"new task is created with ID {str(insert_tk.inserted_id)}"}
 
-@app.put("/pinning_task/{task_title}/{usr_nm}")
-def pinning_task(task_title: str, usr_nm: str):
+@app.put("/pinning_task/{usr_nm}/{task_title}")
+def pinning_task(usr_nm: str, task_title: str):
     try:
         if not task_coll.find_one({"username": usr_nm}): 
             raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
@@ -130,8 +130,8 @@ def pinning_task(task_title: str, usr_nm: str):
     except PyMongoError:
         raise HTTPException(status_code=500, detail="database server error")
 
-@app.put("/unpinning_task/{task_title}/{usr_nm}")
-def unpinning_task(task_title: str, usr_nm: str):
+@app.put("/unpinning_task/{usr_nm}/{task_title}")
+def unpinning_task(usr_nm: str, task_title: str):
     try:
         if not task_coll.find_one({"username": usr_nm}): 
             raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
