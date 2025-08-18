@@ -66,7 +66,7 @@ def get_all_user_tasks():
         tasks.append(process_data(d))
     return tasks
 
-@app.get("/tasks/by_user/{usr_nm}", response_model=List[TASK])
+@app.get("/tasks/{usr_nm}", response_model=List[TASK])
 def get_tasks_by_username(usr_nm: str):
     try:
         docs = list(task_coll.find({"username": usr_nm}).sort("task_order", 1))
@@ -80,7 +80,7 @@ def get_tasks_by_username(usr_nm: str):
         tasks.append(process_data(d))
     return tasks
 
-@app.get("/tasks/by_user_status/{usr_nm}/{status}", response_model=List[TASK])
+@app.get("/tasks/{usr_nm}/{status}", response_model=List[TASK])
 def get_tasks_by_username_and_status(usr_nm: str, status: str):
     if is_invalid_status(status):
         raise HTTPException(status_code=400, detail="invalid status")
