@@ -34,11 +34,11 @@ def GTUS(usr_nm: str, status: str):
         raise HTTPException(status_code=400, detail="invalid status")
     
     try:
-        if not db.find_one({"username": usr_nm}):
-            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
         docs = list(db.find({"username": usr_nm, "task_status": status}).sort("task_order", 1))
         if not docs:
-            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm} and status = {status}")
+            if not db.find_one({"username": usr_nm}):
+                raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
+            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm} and status: {status}")
     except PyMongoError: 
         raise HTTPException(status_code=500, detail="database server error")
     
