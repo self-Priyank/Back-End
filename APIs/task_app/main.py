@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from schemas import TASK, TASK_CREATE
 from typing import List
-import logic, my_db
+import logic
 
-db = my_db.get_task_coll()
 app = FastAPI()
 
 @app.get("/")
