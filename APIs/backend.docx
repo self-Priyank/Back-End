@@ -38,8 +38,12 @@
     * Base64Url chars = (A-Z), (a-z), (0-9), "-", "_", = (optional)
 --> Base64 = not safe for URL as + & / can be misread, Base64Url = URL-safe
 
-10. JSON Web Token (JWT): small-size, URL-safe token string securely transmit data between parties. 
-@ uses Base64Url for encoding. performs authentication & authorization. components:
---> header = 
+10. JSON Web Token (JWT): small-size, URL-safe token string securely transmit data between parties
+@ uses Base64Url for encoding. performs authentication & authorization
+@ components: header, payload, signature
 
-11. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
+11. header:
+@ 'alg' field tells which algo. is used for creating signature for data
+@ 'typ'
+
+12. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
