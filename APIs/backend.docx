@@ -30,5 +30,16 @@
 
 8 --> authentication confirms the existence & validity of a user
   --> authorization confirms whether a user is allowed to access or perform something
+  --> encoding = convert data into different format so that it can be easily transmitted
+  --> encryption = convert data into unreadable form so that only user with authorized key can read it
 
-9. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
+9. Base64 & Base64Url: encoding systems for converting any kind of data into text format by using 64 characters
+--> * Base64 chars = (A-Z), (a-z), (0-9), +, /, =
+    * Base64Url chars = (A-Z), (a-z), (0-9), "-", "_", = (optional)
+--> Base64 = not safe for URL as + & / can be misread, Base64Url = URL-safe
+
+10. JSON Web Token (JWT): small-size, URL-safe token string securely transmit data between parties. 
+@ uses Base64Url for encoding. performs authentication & authorization. components:
+--> header = 
+
+11. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
