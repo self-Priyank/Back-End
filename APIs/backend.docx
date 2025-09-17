@@ -14,7 +14,7 @@
 @ HTTP methods: perform specific actions
 --> GET = retrieve data, POST = create new data, PUT = update existing data, DELETE = remove data 
 @ request header: carries metadata regarding request. helps API to process it correctly
---> metadata = descriptive info. like authentication cred., content type, etc. 
+--> metadata = descriptive info. for data like authentication cred., content type, etc. 
 @ request body: data send to API in JSON. mainly used with POST & PUT
 
 4. Library: set of pre-written codes (functions, classes, etc) that you can call anytime, anywhere in program
@@ -42,8 +42,10 @@
 @ uses Base64Url for encoding. performs authentication & authorization
 @ components: header, payload, signature
 
-11. header:
-@ 'alg' field tells which algo. is used for creating signature for data
-@ 'typ'
+11. header: contains metadata for token that defines how it should be processed & verified
+@ 'alg' field specifies which algo. is used to create & verify token's signature for signing
+@ 'typ' field describes the token type (usually JWT)
 
-12. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
+12. payload: 
+
+13. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
