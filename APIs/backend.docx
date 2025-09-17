@@ -46,6 +46,6 @@
 @ 'alg' field specifies which algo. is used to create & verify token's signature for signing
 @ 'typ' field describes the token type (usually JWT)
 
-12. payload: 
+12. payload:
 
 13. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
