@@ -32,8 +32,6 @@
   --> authorization confirms whether a user is allowed to access or perform something
   --> encoding = convert data into different format so that it can be easily transmitted
   --> encryption = convert data into unreadable form so that only user with authorized key can read it
-  --> hashing = convert data into fixed-size string (hash) which can be used to verify that data hasn't been changed but you can't get back 
-      original data
 
 9. Base64 & Base64Url: encoding systems for converting any kind of data into text format by using 64 characters
 --> * Base64 chars = (A-Z), (a-z), (0-9), +, /, =
@@ -42,15 +40,16 @@
 
 10. JSON Web Token (JWT): small-size, URL-safe token string securely transmit data between parties
 @ uses Base64Url for encoding. performs authentication & authorization
-@ components: header, payload, signature
+@ JWT = Base64Url(header).Base64Url(payload).Base64Url(signature)
 
 11. header: contains metadata for token that defines how it should be processed & verified
-@ 'alg' field specifies which algo. is used to create & verify token's signature for signing
+@ 'alg' field specifies which algo. is used to create & verify token's signature
 @ 'typ' field describes the token type (usually JWT)
 
 12. payload: main body of token that stores actual info. you want to send
 @ shouldn't have sensitive info. because it's encoded, not encrypted
 
-13. signature: 
+13. signature: special code that ensures the token hasn't been changed and was issued by trusted server
+@ signature = alg(Base64Url(header).Base64Url(payload), secret key)
 
 14. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
