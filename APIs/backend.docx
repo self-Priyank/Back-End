@@ -32,6 +32,8 @@
   --> authorization confirms whether a user is allowed to access or perform something
   --> encoding = convert data into different format so that it can be easily transmitted
   --> encryption = convert data into unreadable form so that only user with authorized key can read it
+  --> hashing = convert data into fixed-size string (hash) which can be used to verify that data hasn't been changed but you can't get back 
+      original data
 
 9. Base64 & Base64Url: encoding systems for converting any kind of data into text format by using 64 characters
 --> * Base64 chars = (A-Z), (a-z), (0-9), +, /, =
@@ -46,6 +48,9 @@
 @ 'alg' field specifies which algo. is used to create & verify token's signature for signing
 @ 'typ' field describes the token type (usually JWT)
 
-12. payload:
+12. payload: main body of token that stores actual info. you want to send
+@ shouldn't have sensitive info. because it's encoded, not encrypted
 
-13. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
+13. signature: 
+
+14. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
