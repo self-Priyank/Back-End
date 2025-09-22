@@ -7,8 +7,7 @@
 
 3. API structure: (https://example.com)
 @ URL: full address used by client to send request to API. Ex: https://example.com/users?id=1
---> routes: main path inside URL that tells API where to send request. Ex: /users
---> endpoint = comb. of route & HTTP method that calls func. to perform single specific operation. Ex: GET /users, PUT /users, etc.
+--> endpoint = specific path inside that instructs which func. should be call. Ex: GET /users, PUT /users, etc.
 ** API can have multiple endpoints
 
 @ HTTP methods: perform specific actions
