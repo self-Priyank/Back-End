@@ -51,4 +51,9 @@
 13. signature: special code that ensures the token hasn't been changed and was issued by trusted server
 @ signature = alg(Base64Url(header).Base64Url(payload), secret key)
 
-14. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
+14. jose (JSON object signing & encryption): 
+* lib for creating & verifying JWT using multiple algo, provided by its optional dependency 'cryptography'
+* cryptography =  lib for performing encryption, decryption, etc.
+* jwt = 'jose' lib module that provide funcs to create & verify JWT
+
+15. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
