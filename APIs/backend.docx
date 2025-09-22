@@ -56,4 +56,7 @@
 * cryptography =  lib for performing encryption, decryption, etc.
 * jwt = 'jose' lib module that provide funcs to create & verify JWT
 
-15. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
+15. passlib: lib for performing hashing & verification of passwords 
+* 
+
+16. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
