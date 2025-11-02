@@ -52,9 +52,9 @@
 @ signature = alg(Base64Url(header).Base64Url(payload), secret key)
 
 14. jose (JSON object signing & encryption): 
-* lib for creating, encrypting & verifying JWT using algo provided by cryptography
+* lib for JWT operations using algo provided by cryptography
 * cryptography =  lib for performing encryption, decryption, hashing, etc.
-* jwt = 'jose' lib module that provide funcs to create & verify JWT
+* jwt = main module that provide funcs for JWT operations
 
 15. passlib: lib for performing secure hashing & verification of passwords using bcrypt
 * argon2 = modern specialized algo for password hashing
