@@ -56,7 +56,7 @@
 * cryptography =  lib for performing encryption, decryption, hashing, etc.
 * jwt = main module that provide funcs for JWT operations
 
-15. passlib: lib for performing secure hashing & verification of passwords using bcrypt
+15. passlib: lib used for secure hashing & verification of passwords
 * argon2 = modern specialized algo for password hashing
 
 16. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
