@@ -41,7 +41,7 @@ def login_user(user: Person):
             if user.password == d["password"]:
                 return {"message": "Login successful!"}
             else:
-                raise HTTPException(status_code=401, detail="Incorrect password")     # calling HTTPException class constructor
+                raise HTTPException(status_code=401, detail="Incorrect password")     
     raise HTTPException(status_code=404, detail="user doesn't exist") 
 
 @app.post("/sign_up")   
@@ -53,7 +53,7 @@ def sign_up_user(user: Person):
         "email": user.email,
         "password": user.password})
     with open("API_data.json", "w") as f:
-        json.dump(data, f, indent=4)                # write data into file in JSO
+        json.dump(data, f, indent=4)                # write data into file in JSON
     return {"message": "New user created"}
             
 
