@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import json       # read, edit & parse JSON file
+import json
 
 # Parsing: convert JSON raw data into structured data by breaking into small parts & process them based on format. occurs in json.load() 
 # most cases, reading & parsing are done in single call, reading occurs first (internally) & then parsing
@@ -29,7 +29,7 @@ def read_URL():
     return "!! Bienvenue !!"
 
 # Person return single profile
-# list[Person] return all user profiles of same type
+# list[Person] returns list of all user profiles of same type
 @app.get("/users", response_model=list[Person])
 def get_all_users():
     return data
