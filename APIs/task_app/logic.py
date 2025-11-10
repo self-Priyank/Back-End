@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from schemas import TASK, TASK_CREATE
 from pymongo.errors import DuplicateKeyError, PyMongoError
 import others, my_db, time
@@ -9,7 +9,7 @@ def GT():
     try:
         docs = list(db.find().sort("task_order", 1))
     except PyMongoError: 
-        raise HTTPException(status_code=500, detail="database error")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="database error")
     
     t = []
     for d in docs:
@@ -20,27 +20,27 @@ def GTU(usr_nm: str):
     try:
         docs = list(db.find({"username": usr_nm}).sort("task_order", 1))
         if not docs:
-            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No task of username {usr_nm}")
     except PyMongoError: 
-        raise HTTPException(status_code=500, detail="database error")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="database error")
     
     t = []
     for d in docs:
         t.append(others.process_data(d))
     return t
 
-def GTUS(usr_nm: str, status: str):
-    if others.is_invalid_status(status):
-        raise HTTPException(status_code=400, detail="invalid status")
+def GTUS(usr_nm: str, task_status: str):
+    if others.is_invalid_status(task_status):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="invalid status")
     
     try:
-        docs = list(db.find({"username": usr_nm, "task_status": status}).sort("task_order", 1))
+        docs = list(db.find({"username": usr_nm, "task_status": task_status}).sort("task_order", 1))
         if not docs:
             if not db.find_one({"username": usr_nm}):
-                raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm}")
-            raise HTTPException(status_code=404, detail=f"No task found with username {usr_nm} and status: {status}")
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No task of username {usr_nm}")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No task of username {usr_nm} and status: {task_status}")
     except PyMongoError: 
-        raise HTTPException(status_code=500, detail="database server error")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="database server error")
     
     t = []
     for d in docs:
@@ -58,10 +58,10 @@ def CT(t: TASK_CREATE):
     try:
         insert_tk = db.insert_one(tk)
     except DuplicateKeyError:
-        raise HTTPException(status_code=400, detail="failed to create task because order value isn't unique")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="failed to create task because order value isn't unique")
     except PyMongoError:
-        raise HTTPException(status_code=500, detail="database server error")
-    return {"message": f"new task is created with ID {str(insert_tk.inserted_id)}"}
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="database server error")
+    return {"message": f"new task created with ID {str(insert_tk.inserted_id)}"}
 
 def is_pinned(usr_nm: str, task_title: str): 
     try:
@@ -70,7 +70,7 @@ def is_pinned(usr_nm: str, task_title: str):
         return {"message": f"Task ID {docs['id']} is now pinned"}
     
     except PyMongoError:
-        raise HTTPException(status_code=500, detail="database server error")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="database server error")
     
 def is_unpinned(usr_nm: str, task_title: str):
     try:
@@ -79,4 +79,4 @@ def is_unpinned(usr_nm: str, task_title: str):
         return {"message": f"Task ID {docs['id']} is now unpinned"} 
     
     except PyMongoError:
-        raise HTTPException(status_code=500, detail="database server error")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="database server error")

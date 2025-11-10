@@ -1,5 +1,7 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
+from passlib.context import CryptContext
+from jose import jwt, JWTError
 import json
 
 # Parsing: convert JSON raw data into structured data by breaking into small parts & process them based on format. occurs in json.load() 
@@ -11,7 +13,7 @@ except FileNotFoundError:
     print("Error: 'API_data.json' file was not found")
     data = []
 except json.JSONDecodeError:
-    print("Error: 'API_data' file is wrongly formatted")    # Invalid JSON
+    print("Error: 'API_data' file wrongly formatted")    # Invalid JSON
     data = []
 except Exception as e:
     print(f"Unexpected error: {e}")
@@ -41,14 +43,14 @@ def login_user(user: Person):
             if user.password == d["password"]:
                 return {"message": "Login successful!"}
             else:
-                raise HTTPException(status_code=401, detail="Incorrect password")     
-    raise HTTPException(status_code=404, detail="user doesn't exist") 
+                raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect password")     
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="user doesn't exist") 
 
 @app.post("/sign_up")   
 def sign_up_user(user: Person):
     for d in data:
         if user.email == d["email"]:
-            raise HTTPException(status_code=409, detail="user already exist")
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="user already exist")
     data.append({
         "email": user.email,
         "password": user.password})

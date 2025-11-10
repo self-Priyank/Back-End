@@ -20,8 +20,8 @@ def get_tasks_by_username(usr_nm: str):
     return tasks
 
 @app.get("/tasks/{usr_nm}/{status}", response_model=List[TASK])
-def get_tasks_by_username_and_status(usr_nm: str, status: str):
-    tasks = logic.GTUS(usr_nm, status)
+def get_tasks_by_username_and_taskstatus(usr_nm: str, task_status: str):
+    tasks = logic.GTUS(usr_nm, task_status)
     return tasks
 
 @app.post("/create_task")
