@@ -18,11 +18,11 @@
 
 4. Library: set of pre-written codes (functions, classes, etc) that you can call anytime, anywhere in program
 5. Framework: provides pre-defined structure with built-in tools for creating applications
---> controls the flow of program & user add its code in this setup 
+--> controls the flow of program & allow user to add its own code
 
 6. uvicorn = lightweight, high-speed web server for running FastAPI app
-7. FastAPI: python framework used for building high-performance API quickly & efficiently
-@ prefer over Django when you're creating high-speed back-end only. python module = fastapi
+7. FastAPI: python framework for building high-performance API quickly & efficiently
+@ prefer over Django for creating high-speed back-end only. python module = fastapi
 @ FastAPI = main class of fastapi used to create app
 @ response_model = keyword that instructs app to process data based on data model
 @ pydantic: library that helps app to process data. BaseModel = creates data model
@@ -43,7 +43,7 @@
 
 11. header: contains metadata for token that defines how it should be processed & verified
 @ 'alg' field specifies which algo. is used to create & verify token's signature
-@ 'typ' field describes the token type (usually JWT)
+@ 'typ' field => token type (usually JWT)
 
 12. payload: main body of token that stores actual info. you want to send
 @ shouldn't have sensitive info. because it's encoded, not encrypted
@@ -52,7 +52,7 @@
 @ signature = alg(Base64Url(header).Base64Url(payload), secret key)
 
 14. jose (JSON object signing & encryption): 
-* lib for JWT operations using algo provided by cryptography
+* lib for JWT operations using algo. provided by cryptography
 * cryptography =  lib for performing encryption, decryption, hashing, etc.
 * jwt = main module that provide funcs for JWT operations
 
