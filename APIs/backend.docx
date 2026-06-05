@@ -1,11 +1,8 @@
-1. back-end: connects front-end & database
-@ takes request from front-end, interacts with database to fetch or update data & send it back to user after processing
-
-2. API: Application Programming Interface = part of back-end that connects front-end & back-end server
+1. API: Application Programming Interface = part of back-end that connects front-end & back-end server
 @ takes valid request from front-end, send it to server, format response and sends back to front-end in JSON
 * response = output data + status code = use json() to convert it into dict for easy access
 
-3. API structure: (https://example.com)
+2. API structure: (https://example.com)
 @ URL: full address used by client to send request to API. Ex: https://example.com/users?id=1
 --> endpoint = specific path inside that instructs which func. should be call. Ex: GET /users, PUT /users, etc.
 ** API can have multiple endpoints
@@ -16,47 +13,39 @@
 --> metadata = descriptive info. for data like authentication cred., content type, etc. 
 @ request body: data send to API in JSON. mainly used with POST & PUT
 
-4. Library: set of pre-written codes (functions, classes, etc) that you can call anytime, anywhere in program
-5. Framework: provides pre-defined structure with built-in tools for creating applications
---> controls the flow of program & allow user to add its own code
-
-6. uvicorn = lightweight, high-speed web server for running FastAPI app
-7. FastAPI: python framework for building high-performance API quickly & efficiently
+3. uvicorn = lightweight, high-speed web server for running FastAPI app
+4. FastAPI: python framework for building high-performance API quickly & efficiently
 @ prefer over Django for creating high-speed back-end only. python module = fastapi
 @ FastAPI = main class of fastapi used to create app
 @ response_model = keyword that instructs app to process data based on data model
 @ pydantic: library that helps app to process data. BaseModel = creates data model
 
-8 --> authentication confirms the existence & validity of a user
-  --> authorization confirms whether a user is allowed to access or perform something
-  --> encoding = convert data into different format so that it can be easily transmitted
+5 --> encoding = convert data into different format so that it can be easily transmitted
   --> encryption = convert data into unreadable form so that only user with authorized key can read it
 
-9. Base64 & Base64Url: encoding systems for converting any kind of data into text format by using 64 characters
+6. Base64 & Base64Url: encoding systems for converting any kind of data into text format by using 64 characters
 --> * Base64 chars = (A-Z), (a-z), (0-9), +, /, =
     * Base64Url chars = (A-Z), (a-z), (0-9), "-", "_", = (optional)
 --> Base64 = not safe for URL as + & / can be misread, Base64Url = URL-safe
 
-10. JSON Web Token (JWT): small-size, URL-safe token string securely transmit data between parties
+7. JSON Web Token (JWT): small-size, URL-safe token string securely transmit data between parties
 @ uses Base64Url for encoding. performs authentication & authorization
 @ JWT = Base64Url(header).Base64Url(payload).Base64Url(signature)
 
-11. header: contains metadata for token that defines how it should be processed & verified
+8. header: contains metadata for token that defines how it should be processed & verified
 @ 'alg' field specifies which algo. is used to create & verify token's signature
 @ 'typ' field => token type (usually JWT)
 
-12. payload: main body of token that stores actual info. you want to send
+9. payload: main body of token that stores actual info. you want to send
 @ shouldn't have sensitive info. because it's encoded, not encrypted
 
-13. signature: special code that ensures the token hasn't been changed and was issued by trusted server
+10. signature: special code that ensures the token hasn't been changed and was issued by trusted server
 @ signature = alg(Base64Url(header).Base64Url(payload), secret key)
 
-14. jose (JSON object signing & encryption): 
+11. jose (JSON object signing & encryption): 
 * lib for JWT operations using algo. provided by cryptography
 * cryptography =  lib for performing encryption, decryption, hashing, etc.
 * jwt = main module that provide funcs for JWT operations
 
-15. passlib: lib used for secure hashing & verification of passwords
+12. passlib: lib used for secure hashing & verification of passwords
 * argon2 = modern specialized algo for password hashing
-
-16. Django: python framework used to build full websites (from front-end to back-end) by following MVT pattern
