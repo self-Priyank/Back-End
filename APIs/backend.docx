@@ -1,5 +1,4 @@
-1. API: Application Programming Interface = part of back-end that connects front-end & back-end server
-@ takes valid request from front-end, send it to server, format response and sends back to front-end in JSON
+1. API: Application Programming Interface
 * response = output data + status code = use json() to convert it into dict for easy access
 
 2. API structure: (https://example.com)
