@@ -6,8 +6,6 @@
 --> endpoint = specific path inside that instructs which func. should be call. Ex: GET /users, PUT /users, etc.
 ** API can have multiple endpoints
 
-@ HTTP methods: perform specific actions
---> GET = retrieve data, POST = create new data, PUT = update existing data, DELETE = remove data 
 @ request header: carries metadata regarding request. helps API to process it correctly
 --> metadata = descriptive info. for data like authentication cred., content type, etc. 
 @ request body: data send to API in JSON. mainly used with POST & PUT
