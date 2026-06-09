@@ -20,29 +20,17 @@
 5 --> encoding = convert data into different format so that it can be easily transmitted
   --> encryption = convert data into unreadable form so that only user with authorized key can read it
 
-6. Base64 & Base64Url: encoding systems for converting any kind of data into text format by using 64 characters
+6. Base64 & Base64Url: encoding systems for converting data into text format by using 64 chars
 --> * Base64 chars = (A-Z), (a-z), (0-9), +, /, =
     * Base64Url chars = (A-Z), (a-z), (0-9), "-", "_", = (optional)
---> Base64 = not safe for URL as + & / can be misread, Base64Url = URL-safe
+--> Base64 = not safe for URL as + & / can be misread
 
-7. JSON Web Token (JWT): small-size, URL-safe token string securely transmit data between parties
-@ uses Base64Url for encoding. performs authentication & authorization
-@ JWT = Base64Url(header).Base64Url(payload).Base64Url(signature)
+7. JWT: URL-safe token string securely transmit data between parties
 
-8. header: contains metadata for token that defines how it should be processed & verified
-@ 'alg' field specifies which algo. is used to create & verify token's signature
-@ 'typ' field => token type (usually JWT)
-
-9. payload: main body of token that stores actual info. you want to send
-@ shouldn't have sensitive info. because it's encoded, not encrypted
-
-10. signature: special code that ensures the token hasn't been changed and was issued by trusted server
-@ signature = alg(Base64Url(header).Base64Url(payload), secret key)
-
-11. jose (JSON object signing & encryption): 
+8. jose (JSON object signing & encryption): 
 * lib for JWT operations using algo. provided by cryptography
 * cryptography =  lib for performing encryption, decryption, hashing, etc.
 * jwt = main module that provide funcs for JWT operations
 
-12. passlib: lib used for secure hashing & verification of passwords
+9. passlib: lib used for secure hashing & verification of passwords
 * argon2 = modern specialized algo for password hashing
